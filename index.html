@@ -922,15 +922,15 @@
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Let's Work Together</h2>
-            <form class="contact-form">
+            <form class="contact-form" id="contact-form">
                 <div class="form-group">
-                    <input type="text" placeholder="Your Name" required>
+                    <input type="text" placeholder="Your Name"  name="from_name" required >
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="Your Email" required>
+                    <input type="email" placeholder="Your Email" name="reply_to" required  >
                 </div>
                 <div class="form-group">
-                    <textarea placeholder="Your Message" required></textarea>
+                    <textarea placeholder="Your Message" name="message" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
@@ -1047,8 +1047,33 @@ document.querySelectorAll("#navLinks a").forEach(link => {
   });
 });
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
-        </script>
+<script>
+(function () {
+  emailjs.init("H1iESF2bcOQNXWdo_"); // yahan apni Public Key
+})();
+
+document.getElementById("contact-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  emailjs.sendForm(
+    "service_hcqacna",   // service ID
+    "template_4ya3p78",  // template ID
+    this
+  ).then(
+    function () {
+      alert("Message sent successfully!");
+      document.getElementById("contact-form").reset();
+    },
+    function (error) {
+      alert("Failed to send message");
+      console.log(error);
+    }
+  );
+});
+</script>
         
-            
+        
         </body>
